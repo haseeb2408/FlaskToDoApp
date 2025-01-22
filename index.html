@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #d9f2d9;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        td a {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            margin-right: 5px;
+        }
+
+        td a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Flask TODO APP</h1>
+        {% if tasks|length < 1 %}
+        <h4>There is no tasks.  Create one below</h4>
+        {% else %}
+        <table>
+            <tr>
+                <th>Task ID</th>
+                <th>Task</th>
+                <th>Adeed</th>
+                <th>Actions</th>
+            </tr>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/del/{{ task.id }}">Delete</a>
+                    <a href="/update/{{ task.id }}">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+        {% endif %}
+    </div>
+
+
+    <form action="/" method="POST">
+        <input type="text" name = 'content' , id ='content'>
+        <input type="submit" , value = 'Add task'>
+    </form>
+</body>
+</html>
